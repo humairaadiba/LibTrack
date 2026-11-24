@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0f19" />
+  <title>LibTrack — Smart Library System</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="authScreen" class="auth-overlay hidden">
+    <div class="auth-card">
+      <div class="brand-badge">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+        <span>LibTrack</span>
+      </div>
+      <h1>Welcome to LibTrack</h1>
+      <p class="auth-subtitle">Sign in with your email or phone number to track your borrowed books and waitlists, or continue directly as a guest.</p>
+
+      <form id="loginForm" class="auth-form">
+        <div class="input-group">
+          <label for="userNameInput">Full Name</label>
+          <input type="text" id="userNameInput" placeholder="e.g. Md Refat Hossain" required />
+        </div>
+        <div class="input-group">
+          <label for="userContactInput">Email or Phone Number</label>
+          <input type="text" id="userContactInput" placeholder="e.g. refat@vu.edu.bd or 017XXXXXXXX" required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Sign In & Save Session</button>
+      </form>
+
+      <div class="divider"><span>OR</span></div>
+
+      <button id="guestBtn" class="btn btn-secondary btn-lg">Continue as Guest</button>
+    </div>
+  </div>
+
+  <div id="appShell" class="app-shell hidden">
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+          </div>
+          <div>
+            <span class="logo-title">LibTrack</span>
+            <span class="logo-tag">Departmental Catalog</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <button id="installAppBtn" class="btn btn-primary btn-sm hidden">Install App</button>
+        <div class="user-pill" id="userProfileDisplay">
+          <span class="status-dot"></span>
+          <span id="displayUserName">Guest</span>
+        </div>
+        <button id="switchAccountBtn" class="btn btn-outline btn-sm" title="Switch User">Switch User</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-label">Total Catalog Books</span>
+          <strong class="stat-value" id="statTotal">15</strong>
+        </div>
+        <div class="stat-card accent-green">
+          <span class="stat-label">Available Now</span>
+          <strong class="stat-value" id="statAvailable">15</strong>
+        </div>
+        <div class="stat-card accent-amber">
+          <span class="stat-label">Currently Borrowed</span>
+          <strong class="stat-value" id="statBorrowed">0</strong>
+        </div>
+        <div class="stat-card accent-blue">
+          <span class="stat-label">Active Waitlists</span>
+          <strong class="stat-value" id="statWaitlist">0</strong>
+        </div>
+      </section>
+
+      <section class="controls-bar">
+        <div class="search-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="searchInput" placeholder="Search by Book ID (e.g. 5), Title, or Author..." />
+        </div>
+
+        <div class="filter-tabs">
+          <button class="tab-btn active" data-filter="all">All Books (15)</button>
+          <button class="tab-btn" data-filter="available">Available</button>
+          <button class="tab-btn" data-filter="borrowed">Borrowed</button>
+          <button class="tab-btn" data-filter="mybooks">My Activity</button>
+        </div>
+
+        <button id="resetDemoBtn" class="btn btn-ghost btn-sm" title="Restore all 15 books to initial state">Reset Library</button>
+      </section>
+
+      <section id="booksGrid" class="books-grid"></section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
